@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.Main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(252, 90, 44, 0.89);
+  height: 60px;
+  padding: 5px;
+  color: white;
+}
+
+.Main-header__title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.Main-header__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 300px;
+}
