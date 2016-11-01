@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-.Main-header {
+.Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,13 +12,13 @@
   color: white;
 }
 
-.Main-header__title {
-  margin: 0;
+.Header__title {
+  margin: 6px 12px;
   font-size: 30px;
-  font-weight: 500;
+  font-weight: 100;
 }
 
-.Main-header__form {
+.Header__form {
   display: flex;
   justify-content: center;
   align-items: center;
