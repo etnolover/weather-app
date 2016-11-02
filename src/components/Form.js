@@ -1,4 +1,5 @@
 import React from 'react'
+import weatherHelpers from '../helpers/weatherApi'
 
 class Form extends React.Component {
   constructor(props) {
@@ -6,6 +7,7 @@ class Form extends React.Component {
     this.formClassName = props.formClassName;
     this.inputPlaceholder = props.inputPlaceholder;
     this.buttonText = props.buttonText;
+    this.state = { value: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,7 +20,11 @@ class Form extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log('Test of Form Submit');
+    console.log(this.state.value);
+    weatherHelpers.getCurrentWeather();
+    this.setState({
+      value: ''
+    });
   }
 
   render() {
@@ -28,6 +34,7 @@ class Form extends React.Component {
           type="text"
           className="form-input"
           placeholder={this.inputPlaceholder}
+          value={this.state.value}
           onChange={this.handleChange}/>
         <button
           type="button"
@@ -38,6 +45,7 @@ class Form extends React.Component {
       </form>
     );
   }
+
 }
 
 export default Form;
