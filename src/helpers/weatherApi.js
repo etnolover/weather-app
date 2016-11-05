@@ -5,19 +5,23 @@ const currentWeatherURL = `http://api.openweathermap.org/data/2.5/weather?q=${CI
 const fiveDaysWeatherURL = `http://api.openweathermap.org/data/2.5/forecast?q=${CITY_NAME}&appid=${YOUR_API_KEY}`;
 
 const getWeatherResponse = (response) => {
-  console.log(response.status);
+  console.log('FROM WEATHER_API.JS:  ' + response.status);
   return response.json();
 };
 
 const getCurrentWeatherFromResponse = (json) => {
   const kelvinToCelsius = Math.round(json['main']['temp'] -  273.15);
-  console.log(json['name']);
-  console.log(kelvinToCelsius);
+  console.log('FROM WEATHER_API.JS:  ' + json['name']);
+  console.log('FROM WEATHER_API.JS:  ' + kelvinToCelsius);
+  return {
+    city: json['name'],
+    temp: kelvinToCelsius
+  }
 };
 
 const weatherHelpers = {
   getCurrentWeather() {
-    fetch(currentWeatherURL)
+    return fetch(currentWeatherURL)
       .then(getWeatherResponse)
       .then(getCurrentWeatherFromResponse)
   },

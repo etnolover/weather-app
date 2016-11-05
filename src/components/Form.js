@@ -20,11 +20,17 @@ class Form extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state.value);
-    weatherHelpers.getCurrentWeather();
-    this.setState({
-      value: ''
+    const weatherParams = {};
+    weatherHelpers.getCurrentWeather()
+      .then((obj) => Object.assign(weatherParams, obj));
+    console.log(weatherParams['city']);
+    this.context.router.push({
+      pathname: '/forecast/' + this.state.value + '|test',
+      state: {
+        weather: weatherParams
+      }
     });
+    console.log(this.context.router.location.state.weather);
   }
 
   render() {
@@ -47,5 +53,9 @@ class Form extends React.Component {
   }
 
 }
+
+Form.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default Form;
