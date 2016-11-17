@@ -12,7 +12,7 @@ const ForecastBase = (props) => {
     return Object.keys(data).map((day) => {
       const imgAPI = `http://openweathermap.org/img/w/${ data[day]['icon'] }.png`;
       return (
-        <div key={data[day]['key']}>
+        <div className="ForecastBase-day" key={data[day]['key']}>
           <img src={imgAPI} alt="pic"/>
           <h1>{data[day]['date']}</h1>
           <p>Temperature: {data[day]['temp']} &deg;C</p>
@@ -22,7 +22,7 @@ const ForecastBase = (props) => {
   };
 
   return (
-      <div>{showWeather(props.weatherData['details'])}</div>
+      <div className="ForecastBase-bg">{showWeather(props.weatherData['details'])}</div>
   );
 };
 
