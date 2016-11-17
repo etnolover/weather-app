@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import Form from '../components/Form'
 import '../styles/index.css';
 import '../styles/Header.css';
@@ -6,7 +7,9 @@ import '../styles/Header.css';
 const Header = () => {
   return (
     <div className="Header">
-      <h2 className="Header__title">Weather App</h2>
+      <Link to="/" activeStyle={{textDecoration: 'none'}}>
+        <h2 className="Header__title">Weather App</h2>
+      </Link>
       <Form
         formClassName="Header__form"
         inputPlaceholder="Moscow, Russia"
