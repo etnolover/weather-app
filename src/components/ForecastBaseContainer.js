@@ -15,7 +15,6 @@ class ForecastBaseContainer extends React.Component {
   componentDidMount() {
     weatherHelpers.getSevenDayWeatherForecast(this.state.weatherLocation)
       .then((data) => {
-        console.log(`FROM FBContainer: City: ${data.city}, Temperature: ${data.temp}`);
         this.setState({
           weatherData: data,
           isLoading: false
