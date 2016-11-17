@@ -1,8 +1,17 @@
 const YOUR_API_KEY = '0864e231a83814f77c4492d3069ca06d';
-let CITY_NAME = 'London, UK';
 
-const currentWeatherURL = `http://api.openweathermap.org/data/2.5/weather?q=${CITY_NAME}&appid=${YOUR_API_KEY}`;
-const fiveDaysWeatherURL = `http://api.openweathermap.org/data/2.5/forecast?q=${CITY_NAME}&appid=${YOUR_API_KEY}`;
+const currentWeatherURL = (location) => {
+  if (!location) { location = 'Moscow'; }
+  return `http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${YOUR_API_KEY}`;
+};
+const sevenDaysWeatherURL = (location) => {
+  if (!location) { location = 'Moscow'; }
+  return `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&cnt=7&appid=${YOUR_API_KEY}`
+};
+
+const kelvinToCelcius = (temp) => {
+  return (temp -  273.15).toFixed(1);
+};
 
 const getWeatherResponse = (response) => {
   console.log('FROM WEATHER_API.JS:  ' + response.status);
@@ -10,25 +19,34 @@ const getWeatherResponse = (response) => {
 };
 
 const getCurrentWeatherFromResponse = (json) => {
-  const kelvinToCelsius = Math.round(json['main']['temp'] -  273.15);
-  console.log('FROM WEATHER_API.JS:  ' + json['name']);
-  console.log('FROM WEATHER_API.JS:  ' + kelvinToCelsius);
-  return {
-    city: json['name'],
-    temp: kelvinToCelsius
+  console.log('FROM WEATHER_API.JS:  ' + json['city']['name']);
+  let data = {
+    city: json['city']['name'],
+    details: {}
+  };
+  for(let i = 0; i < json['list'].length; i++) {
+    data['details']['day' + (i + 1)] = {
+      key: i + 1,
+      date: new Date( json['list'][i]['dt'] * 1000 ).toLocaleString('en', {weekday: 'long'}),
+      temp: kelvinToCelcius( json['list'][i]['temp']['eve'] ),
+      icon: json['list'][i]['weather'][0]['icon']
+    }
   }
+  console.log(data);
+  return data;
 };
 
 const weatherHelpers = {
-  getCurrentWeather() {
-    return fetch(currentWeatherURL)
+  getCurrentWeather(location) {
+    return fetch(currentWeatherURL(location))
       .then(getWeatherResponse)
       .then(getCurrentWeatherFromResponse)
   },
 
-  getFiveDayWeatherForecast() {
-    fetch(fiveDaysWeatherURL)
+  getSevenDayWeatherForecast(location) {
+    return fetch(sevenDaysWeatherURL(location))
       .then(getWeatherResponse)
+      .then(getCurrentWeatherFromResponse)
   }
 };
 
