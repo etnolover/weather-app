@@ -1,5 +1,4 @@
 import React from 'react'
-import weatherHelpers from '../helpers/weatherApi'
 
 class Form extends React.Component {
   constructor(props) {
@@ -7,7 +6,9 @@ class Form extends React.Component {
     this.formClassName = props.formClassName;
     this.inputPlaceholder = props.inputPlaceholder;
     this.buttonText = props.buttonText;
-    this.state = { value: '' };
+    this.state = {
+      value: ''
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -20,17 +21,18 @@ class Form extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const weatherParams = {};
-    weatherHelpers.getCurrentWeather()
-      .then((obj) => Object.assign(weatherParams, obj));
-    console.log(weatherParams['city']);
+
+    const weatherLocation = this.state.value || 'Moscow';
     this.context.router.push({
-      pathname: '/forecast/' + this.state.value + '|test',
+      pathname: '/forecast/' + weatherLocation,
       state: {
-        weather: weatherParams
+        weatherLocation: weatherLocation
       }
     });
-    console.log(this.context.router.location.state.weather);
+
+    this.setState({
+      value: ''
+    });
   }
 
   render() {
@@ -40,7 +42,7 @@ class Form extends React.Component {
           type="text"
           className="form-input"
           placeholder={this.inputPlaceholder}
-          value={this.state.value}
+          defaultValue={this.state.value}
           onChange={this.handleChange}/>
         <button
           type="button"
