@@ -25,9 +25,12 @@ const getCurrentWeatherFromResponse = (json) => {
     details: {}
   };
   for(let i = 0; i < json['list'].length; i++) {
+    let date = new Date( json['list'][i]['dt'] * 1000 );
     data['details']['day' + (i + 1)] = {
       key: i + 1,
-      date: new Date( json['list'][i]['dt'] * 1000 ).toLocaleString('en', {weekday: 'long'}),
+      month: date.toLocaleString('en', {month: 'long'}),
+      day: date.toLocaleString('en', {day: 'numeric'}),
+      weekday: date.toLocaleString('en', {weekday: 'long'}),
       temp: kelvinToCelcius( json['list'][i]['temp']['eve'] ),
       icon: json['list'][i]['weather'][0]['icon']
     }
