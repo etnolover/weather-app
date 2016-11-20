@@ -1,1 +1,0 @@
-Weather app based on [Open Weather API](http://openweathermap.org/api)
