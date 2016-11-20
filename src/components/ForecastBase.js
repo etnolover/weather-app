@@ -2,7 +2,7 @@ import React from 'react'
 import Loading from './Loading'
 import '../styles/ForecastBase.css'
 
-const camelize = (word) => {
+const camelize = (word) =>{
   return word.slice(0, 1).toUpperCase() + word.slice(1);
 };
 
