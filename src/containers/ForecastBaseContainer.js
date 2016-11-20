@@ -2,6 +2,8 @@ import React from 'react'
 import ForecastBase from '../components/ForecastBase'
 import weatherHelpers from '../helpers/weatherApi'
 
+
+
 class ForecastBaseContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -12,27 +14,26 @@ class ForecastBaseContainer extends React.Component {
     };
   }
 
+  getWeather(location) {
+    weatherHelpers.getSevenDayWeatherForecast(location)
+      .then((data) => {
+        this.setState({
+          weatherData: data,
+          isLoading: false
+        })
+      })
+  };
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       isLoading: true
     });
-    weatherHelpers.getSevenDayWeatherForecast(nextProps.location.state.weatherLocation)
-      .then((data) => {
-        this.setState({
-          weatherData: data,
-          isLoading: false
-        })
-      })
+
+    this.getWeather(nextProps.location.state.weatherLocation);
   }
 
   componentDidMount() {
-    weatherHelpers.getSevenDayWeatherForecast(this.state.weatherLocation)
-      .then((data) => {
-        this.setState({
-          weatherData: data,
-          isLoading: false
-        })
-      })
+    this.getWeather(this.state.weatherLocation);
   }
 
   render() {
