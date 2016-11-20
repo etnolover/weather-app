@@ -12,6 +12,19 @@ class ForecastBaseContainer extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isLoading: true
+    });
+    weatherHelpers.getSevenDayWeatherForecast(nextProps.location.state.weatherLocation)
+      .then((data) => {
+        this.setState({
+          weatherData: data,
+          isLoading: false
+        })
+      })
+  }
+
   componentDidMount() {
     weatherHelpers.getSevenDayWeatherForecast(this.state.weatherLocation)
       .then((data) => {

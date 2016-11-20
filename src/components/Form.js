@@ -42,7 +42,7 @@ class Form extends React.Component {
           type="text"
           className="form-input"
           placeholder={this.inputPlaceholder}
-          defaultValue={this.state.value}
+          value={this.state.value}
           onChange={this.handleChange}/>
         <button
           type="button"
