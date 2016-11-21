@@ -2,7 +2,7 @@ import React from 'react'
 import Loading from './Loading'
 import '../styles/ForecastBase.css'
 
-const camelize = (word) =>{
+const camelize = (word) => {
   return word.slice(0, 1).toUpperCase() + word.slice(1);
 };
 
@@ -14,7 +14,7 @@ const ForecastBase = (props) => {
 
   const showWeather = (data) => {
     return Object.keys(data).map((day) => {
-      const imgAPI = `http://openweathermap.org/img/w/${ data[day]['icon'] }.png`;
+      const imgAPI = `https://openweathermap.org/img/w/${ data[day]['icon'] }.png`;
       return (
         <div className="ForecastBase-day" key={data[day]['key']}>
           <img className="ForecastBase-img" src={imgAPI} alt="pic"/>

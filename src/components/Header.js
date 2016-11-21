@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className="Header">
       <Link to="/" activeStyle={{textDecoration: 'none'}}>
-        <h2 className="Header__title">Weather App</h2>
+        <h2 className="Header__title">Home</h2>
       </Link>
       <Form
         formClassName="Header__form"

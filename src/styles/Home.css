@@ -15,6 +15,7 @@
   color: #fff;
   font-size: 45px;
   font-weight: 100;
+  text-align: center;
 }
 
 .Home__form {
@@ -23,4 +24,10 @@
   justify-content: center;
   align-items: center;
   max-width: 300px;
+}
+
+@media only screen and (max-device-width : 568px) {
+  .Home__header {
+    font-size: 25px;
+  }
 }
